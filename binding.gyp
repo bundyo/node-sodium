@@ -65,7 +65,7 @@
     'conditions': [
       ['OS=="mac"', {
         'libraries': [
-          '../deps/build/lib/libsodium.a'
+          '../deps/build/lib64/libsodium.a'
         ],
         'variables': {
           'osx_min_version': "<!(sw_vers -productVersion | awk -F \'.\' \'{print $1 \".\" $2}\')"
@@ -79,12 +79,12 @@
       }],
       ['OS=="win"', {
         'libraries': [
-          '../deps/build/lib/libsodium.lib'
+          '../deps/build/lib64/libsodium.lib'
         ]
       }],
       ['OS=="linux"', {
         'libraries': [
-          '../deps/build/lib/libsodium.a'
+          '../deps/build/lib64/libsodium.a'
         ]
       }]
     ]

@@ -4,7 +4,7 @@ BINDIR = ./node_modules/.bin
 
 LIBSODIUM_DIR = ./deps/libsodium
 INSTALL_DIR = $(CURDIR)/deps/build
-SODIUM_LIB = ${INSTALL_DIR}/lib/libsodium
+SODIUM_LIB = ${INSTALL_DIR}/lib64/libsodium
 
 .DEFAULT_GOAL := sodium
 
@@ -151,9 +151,9 @@ clean:
 	-find ${LIBSODIUM_DIR} -name Makefile.in -delete
 	-find ${LIBSODIUM_DIR} -name *.trs -delete
 	-find ${LIBSODIUM_DIR}/test/default/ -type f ! -name "*.*" -delete
-	@echo 
+	@echo
 	@echo NOTICE: package-lock.json is not removed by default. Run \'make cleanall\' to remove it.
-	@echo 
+	@echo
 
 cleanbuild: clean
 	-rm -fr ./build

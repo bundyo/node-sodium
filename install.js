@@ -92,7 +92,7 @@ function recursePathList(paths) {
     var file = paths.shift();
     if (!fs.existsSync(file)) {
         try {
-            fs.mkdirSync(file, 0755);
+            fs.mkdirSync(file, 755);
         } catch (e) {
             throw new Error("Failed to create path: " + file + " with " + e.toString());
         }
@@ -157,7 +157,7 @@ function getPlatformToolsVersion() {
         2012: 'v110',
         2013: 'v120',
         2015: 'v140'
-    }
+    };
 
     checkMSVSVersion();
     var ver = platformTools[process.env.npm_config_msvs_version];
@@ -215,7 +215,7 @@ function copyFiles(files, next) {
     }
     var file = files.shift();
 
-    var from = 'deps/build/lib64/' + file;
+    var from = 'deps/build/lib/' + file;
     var to = 'build/Release/' + file;
     copyFile(from, to, function(err) {
         if (err) {
@@ -223,7 +223,7 @@ function copyFiles(files, next) {
         }
         console.log('Copy ' + from + ' to ' + to);
         copyFiles(files, next);
-    })
+    });
 }
 
 function gypConfigure(next) {
@@ -266,7 +266,7 @@ function doDownloads(next) {
 
     var libURL = baseURL + '/' + arch + '/Release/' + ver + '/dynamic';
     files = libFiles.slice(0); // clone array
-    downloadAll(files, libURL, 'deps/build/lib64', function() {
+    downloadAll(files, libURL, 'deps/build/lib', function() {
         console.log('Libs for version ' + ver + ' downloaded.');
         downloadAll(includeFiles, baseURL, 'deps/build', function() {
             console.log('Include files downloaded.');
@@ -354,7 +354,7 @@ if (os.platform() !== 'win32') {
     if (isPreInstallMode()) {
         console.log('Preinstall Mode');
         createFullPath("deps/build/include/sodium");
-        createFullPath("deps/build/lib64");
+        createFullPath("deps/build/lib");
         createFullPath("build/Release");
         doDownloads(function() {
             console.log('Prebuild steps completed. Binary libsodium distribution installed in ./deps/build');
