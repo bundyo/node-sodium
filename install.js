@@ -215,7 +215,7 @@ function copyFiles(files, next) {
     }
     var file = files.shift();
 
-    var from = 'deps/build/lib/' + file;
+    var from = 'deps/build/lib64/' + file;
     var to = 'build/Release/' + file;
     copyFile(from, to, function(err) {
         if (err) {
@@ -266,7 +266,7 @@ function doDownloads(next) {
 
     var libURL = baseURL + '/' + arch + '/Release/' + ver + '/dynamic';
     files = libFiles.slice(0); // clone array
-    downloadAll(files, libURL, 'deps/build/lib', function() {
+    downloadAll(files, libURL, 'deps/build/lib64', function() {
         console.log('Libs for version ' + ver + ' downloaded.');
         downloadAll(includeFiles, baseURL, 'deps/build', function() {
             console.log('Include files downloaded.');
@@ -354,7 +354,7 @@ if (os.platform() !== 'win32') {
     if (isPreInstallMode()) {
         console.log('Preinstall Mode');
         createFullPath("deps/build/include/sodium");
-        createFullPath("deps/build/lib");
+        createFullPath("deps/build/lib64");
         createFullPath("build/Release");
         doDownloads(function() {
             console.log('Prebuild steps completed. Binary libsodium distribution installed in ./deps/build');
